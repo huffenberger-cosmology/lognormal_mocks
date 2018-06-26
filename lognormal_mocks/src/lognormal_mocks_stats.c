@@ -4,8 +4,8 @@
 
 
 void lognormal_mocks_stats_fullsky(int Nmaps,
-				   double *rhobar, // mean density (input)
-				   int Nl, double *Cl, // power spectrum of map (input)
+				   double *rhobar, // mean densities (input)
+				   int Nl, double *Cl, // power spectrum of field (input)
 				   double *gaussbar, double *Clgauss,  // mean and overdensity of Gaussianized field (output)
 				   double *xidelta, int Nth // correlation function of overdensity
 				   ) {
@@ -13,7 +13,7 @@ void lognormal_mocks_stats_fullsky(int Nmaps,
 
   double vargauss;
   double *xigauss = calloc(Nmaps*Nmaps*Nth,sizeof(double)); // Correlation function of Gaussianized field
-  double *Cldelta = calloc(Nmaps*Nmaps*Nl,sizeof(double)); // Power spectrum of Gaussianized field
+  double *Cldelta = calloc(Nmaps*Nmaps*Nl,sizeof(double)); // Power spectrum of overdensity field
 
   int il;
   int ith;
