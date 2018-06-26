@@ -257,6 +257,8 @@ void lognormal_mocks_genalm(gsl_rng *r, int Nmaps, int Nl, double *L, complex *a
   free(u);
 }
 
+
+/*
 void lognormal_mocks_synthesize_fullsky(complex *almset, int Nmaps, int Nl, int nside, double *mapset) {
   int B;
   char filename[1024];
@@ -270,7 +272,7 @@ void lognormal_mocks_synthesize_fullsky(complex *almset, int Nmaps, int Nl, int 
 
 
 }
-
+*/
 
 void lognormal_mocks_mapgauss2lognormal(double *gaussbar, double *mapgauss, int Nmaps, int nside, double *maplognormal) {
 

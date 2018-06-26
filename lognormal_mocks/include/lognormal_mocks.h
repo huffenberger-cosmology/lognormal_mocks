@@ -3,7 +3,7 @@
 #include <math.h>
 #include <complex.h>
 #include <symmetric_legendre.h>
-#include <healpix_cxx_help.h>
+//#include <healpix_cxx_help.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
