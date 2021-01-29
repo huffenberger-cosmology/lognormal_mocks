@@ -1,12 +1,5 @@
-import sys
-
 from pylab import *
-
 from healpy import *
-
-sys.path.reverse()
-sys.path.append('build/lib.linux-x86_64-2.7/')
-sys.path.reverse()
 from lognormal_mocks import *
 
 helloworld()
@@ -28,7 +21,7 @@ Ntheta = 2048
 
 rhobar = array([float(Nobj)/npix])
 
-print rhobar
+print(rhobar)
 
 l = arange(0.,Nl)
 
@@ -53,12 +46,12 @@ close('all')
 mollview(m)
 
 figure()
-plot(ClA)
-plot(rhobar**2 * Clgauss[0,0])
-plot(Clm)
-#ylim(ymax=amax(Cl)*1.1)
+plot(ClA,label='input Cl')
+plot(rhobar**2 * Clgauss[0,0],label='Gaussianized Cl')
+plot(Clm,label='observed Cl')
 loglog()
-#xlim(0,Nl)
+
+legend()
 
 
 figure()

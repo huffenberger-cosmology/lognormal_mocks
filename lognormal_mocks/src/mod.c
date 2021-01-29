@@ -33,31 +33,24 @@ static PyObject *mod_lognormal_mocks_stats_fullsky(PyObject *self, PyObject *arg
 
   printf("Nmaps = %d\nNl = %d\n", Nmaps, Nl);
   
-
-  double *gaussbar = calloc(Nmaps,sizeof(double));
-  double *Clgauss = calloc(Nmaps*Nmaps*Nl,sizeof(double)); // Power spectrum of Gaussianized field
-
+  PyArrayObject *npygaussbar = (PyArrayObject *) PyArray_SimpleNew(1, Nmapsnpy,NPY_DOUBLE);
+  PyArrayObject *npyClgauss = (PyArrayObject *) PyArray_SimpleNew(3, Nlnpy,NPY_DOUBLE);
   
   double *xidelta = calloc(Nmaps*Nmaps*Nth,sizeof(double)); // Correlation function of field
 
   lognormal_mocks_stats_fullsky(Nmaps,
 				rhobar, // mean densities (input)
 				Nl,Cl, // power spectrum of field (input)
-				gaussbar, Clgauss,  // mean and overdensity spectrum of Gaussianized field (output)
+				(double *)npygaussbar->data, (double *) npyClgauss->data,  // mean and overdensity spectrum of Gaussianized field (output)
 				xidelta, // correlation function of overdensity
 				Nth // accuracy parameter
 				);
 
-  PyObject *npygaussbar = PyArray_SimpleNewFromData(1, Nmapsnpy, NPY_DOUBLE, gaussbar);
-  PyArray_ENABLEFLAGS(npygaussbar, NPY_OWNDATA);
+  PyObject *tuple = Py_BuildValue("NN", npygaussbar, npyClgauss);
 
-  PyObject *npyClgauss = PyArray_SimpleNewFromData(3, Nlnpy, NPY_DOUBLE, Clgauss);
-  PyArray_ENABLEFLAGS(npyClgauss, NPY_OWNDATA);
-
-
-  PyObject *outtuple = PyTuple_Pack(2, npygaussbar, npyClgauss);
+  free(xidelta);
   
-  return(outtuple);
+  return(tuple);
 }
 
 
@@ -70,8 +63,35 @@ static PyMethodDef lognormal_mocksMethods[] = {
   {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
+#if PY_MAJOR_VERSION == 2
+
 PyMODINIT_FUNC initmod(void)
 {
-  (void) Py_InitModule("mod", lognormal_mocksMethods);
+  (void) Py_InitModule("lognormal_mocks_mod", lognormal_mocksMethods);
   import_array();  // This is important for using the numpy_array api, otherwise segfaults!
 }
+#endif
+
+#if PY_MAJOR_VERSION >= 3
+static struct PyModuleDef lognormal_mocks_module = {
+					     PyModuleDef_HEAD_INIT,
+					     "lognormal_mocks_mod",   /* name of module */
+					     NULL, /* module documentation, may be NULL */
+					     -1,       /* size of per-interpreter state of the module,
+							  or -1 if the module keeps state in global variables. */
+					     lognormal_mocksMethods
+};
+
+
+PyMODINIT_FUNC PyInit_lognormal_mocks_mod(void)
+{
+  PyObject *m;
+  
+  m = PyModule_Create(&lognormal_mocks_module);
+  
+  import_array();  // This is important for using the numpy_array api, otherwise segfaults!
+  
+  return(m);
+}
+
+#endif
