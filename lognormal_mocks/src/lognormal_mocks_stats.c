@@ -67,6 +67,10 @@ void lognormal_mocks_stats_fullsky(int Nmaps,
       if (A==B) {
 	vargauss = xigauss[B*Nmaps*Nth + A*Nth + 0];
 	gaussbar[B] = log(rhobar[B]) - 0.5*vargauss; 
+      } else {  // fill in the missing half of the Clgauss matrix
+	for (il=0;il<Nl; il++) {
+	  Clgauss[A*Nmaps*Nl + B*Nl + il] = Clgauss[B*Nmaps*Nl + A*Nl + il];
+	}
       }
     }
   }

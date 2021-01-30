@@ -2,8 +2,6 @@ from pylab import *
 from healpy import *
 from lognormal_mocks import *
 
-helloworld()
-
 seed(329968)
 
 
