@@ -28,13 +28,19 @@ static PyObject *mod_lognormal_mocks_stats_fullsky(PyObject *self, PyObject *arg
 
   npy_intp *Nmapsnpy = PyArray_DIMS(rhobar_array);
   int Nmaps = (int) *PyArray_DIMS(rhobar_array);
-  npy_intp *Nlnpy = PyArray_DIMS(Cl_array);
-  int Nl = (int) (Nlnpy[2]);
+  npy_intp *NClnpy = PyArray_DIMS(Cl_array);
+  int Nl = (int) (NClnpy[2]);
 
   printf("Nmaps = %d\nNl = %d\n", Nmaps, Nl);
+
+  if ( (Nmaps != (int)NClnpy[0]) || (Nmaps != (int)NClnpy[1]) ) {
+    printf("Problem: incompatible dimensions\n Nmaps = %d NCl = [%d, %d]\n",Nmaps,(int)NClnpy[0],(int)NClnpy[1]);
+    return(Py_None);
+  }
+  
   
   PyArrayObject *npygaussbar = (PyArrayObject *) PyArray_SimpleNew(1, Nmapsnpy,NPY_DOUBLE);
-  PyArrayObject *npyClgauss = (PyArrayObject *) PyArray_SimpleNew(3, Nlnpy,NPY_DOUBLE);
+  PyArrayObject *npyClgauss = (PyArrayObject *) PyArray_SimpleNew(3, NClnpy,NPY_DOUBLE);
   
   double *xidelta = calloc(Nmaps*Nmaps*Nth,sizeof(double)); // Correlation function of field
 
