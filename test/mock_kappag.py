@@ -9,7 +9,7 @@ nside = 1024
 npix = 12*nside**2
 omegapix = 4*pi/npix
 
-clgg = loadtxt("clgg_th_des_z1.dat") # This is the galaxy overdensity power spectrum
+clgg = loadtxt("clgg_desregion_z1.txt") # This is the galaxy overdensity power spectrum
 clkg = loadtxt("clkg_actregion_z1.txt") # This is the kappa-galaxy overdensity cross
 clkk = loadtxt("clkk_th.txt") # This is the kappa-kappa power spectrum
 
@@ -27,7 +27,7 @@ rhobar = array([ngal,kappabar])  # array of mean must be size Nmap
 Cl = array([[ ngal**2 * clgg, ngal* clkg ],
             [ ngal* clkg,            clkk]])  # array of input Cl must be size (Nmap, Nmap, Nl).  If this is the wrong shape it will fail 
 
-Ntheta = 10000
+Ntheta = 10000 # accuracy parameter
 
 gaussbar, Clgauss = lognormal_mocks_stats(rhobar,Cl,Ntheta) # get the stats for the Gaussianized fields
 
