@@ -6,7 +6,7 @@ close('all')
 
 ngal = 222828.6428782517 # sr^-1
 
-clgg = loadtxt("clgg_th_des_z1.dat") + 0.0 # This is the overdensity power spectrum
+clgg = loadtxt("clgg_th_des_z1.dat") # This is the overdensity power spectrum
 
 nside = 1024
 npix = 12*nside**2
