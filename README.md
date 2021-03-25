@@ -16,7 +16,7 @@ Gabriela Marques provided theory C_l curves for the galaxy overdensity and CMB l
 
 The accuracy of the method is set by the maximum multipole l of the input power spectrum and the Ntheta parameter.  Internally, lognormal_mocks_stats() does a Legendre transformation to convert the power spectrum to a correlation function.  These parameters describe the bandwidth and sampling included, and determine the accuracy and the runtime.  Because the transformation in the exponential function is nonlinear, the usual intuition about l_max, Ntheta, and Nside may not hold, and you may need to go to higher resolution than you expect.  Systems where the mean is small compared to the power spectrum are the most non-Gaussian and the most challenging.
 
-The code doesn't do much internal checking, so it is vital that you verify the results match what you expect.
+The code doesn't do much internal checking, so it is vital that you verify the results match what you expect.  If you need help, ask!
 
 ## Code and Dependences
 The code is written with the Python C API.
