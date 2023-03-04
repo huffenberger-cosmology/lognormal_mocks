@@ -25,8 +25,8 @@ The code doesn't do much internal checking, so it is vital that you verify the r
 ## Code and Dependences
 The code is written with the Python C API.
 
-The code depends on GSL libraries and Lapack for interpolation and matrix operations (Cholesky decomposition).  It depends on the Healpix Fortran library (libhealpix) to  conduct the Legendre transform.  Healpix in turn depends on cfitsio and in some installations an OpenMP library like libgomp.
+The code depends on GSL libraries and Lapack for interpolation and matrix operations (Cholesky decomposition).  It depends on the Healpix Fortran library (libhealpix) to  conduct the Legendre transform.  Healpix in turn depends on cfitsio and in some installations an OpenMP library like libgomp.  Recent Healpix versions also depend on libsharp.
 
 ## License
 
-The code is copyright (C) 2021 Kevin M. Huffenberger and licensed under GPL 3.
+The code is copyright (C) 2021-2023 Kevin M. Huffenberger and licensed under GPL 3.
