@@ -19,6 +19,7 @@
 
 
 #include <symmetric_legendre.h>
+#include <omp.h> 
 
 
 void W2Cl(double *theta, double *W, int Ntheta, double *l, double *C, int Nl) {
@@ -45,6 +46,7 @@ void W2Cl(double *theta, double *W, int Ntheta, double *l, double *C, int Nl) {
   }
 
   double norm = 2*M_PI;
+  #pragma omp parallel for private(il,ith) shared(Nl, Ntheta)	
   for (il=0;il<Nl;il++) {
     double Pfac = sqrt((2.0*l[il]+1.0)/4.0/M_PI);
     C[il] = 0;
@@ -112,6 +114,7 @@ void Cl2W_nospline(double *theta, double *W, int Ntheta, double *C, int Nl) {
   double *lam_l0 = calloc((lmax+1)*Ntheta,sizeof(double));
   
   //  Generate lam_l0 = sqrt((2l+1)/4pi) P_l (cos(theta))
+  #pragma omp parallel for private(ith) shared(lmax,mmax,mfac,recfac,lam_l0)
   for (ith = 0; ith<Ntheta;ith++) {
     double cth = cos(theta[ith]);
     double sth = sin(theta[ith]);
@@ -124,6 +127,7 @@ void Cl2W_nospline(double *theta, double *W, int Ntheta, double *C, int Nl) {
 
 
   double norm = 1.0;
+  #pragma omp parallel for private(ith, il) shared(lmax,Ntheta,lam_l0,theta)
   for (ith = 0; ith<Ntheta-1;ith++) {
     W[ith] = 0;
 
