@@ -8,7 +8,7 @@ module2 =  Extension('lognormal_mocks.lognormal_mocks_mod',
                      sources = ['lognormal_mocks/src/mod.c','lognormal_mocks/src/healpix_legendre_c.c','lognormal_mocks/src/lognormal_mocks_stats.c','lognormal_mocks/src/symmetric_legendre.c'],
                      include_dirs = [numpy_inc,'lognormal_mocks/include'],
                      libraries=['gsl','gslcblas','healpix','cfitsio','gomp','lapack','sharp'],
-                     extra_compile_args=['-fPIC','-Wall','-g'])
+                     extra_compile_args=['-fPIC','-Wall','-g','-fopenmp']) #compile arg for openmp
 
 setup (name = 'lognormal_mocks',
        version = '0.11',
