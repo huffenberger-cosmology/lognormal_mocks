@@ -18,6 +18,7 @@
 
 
 #include <lognormal_mocks.h>
+#include <omp.h>
 
 
 void lognormal_mocks_stats_fullsky(int Nmaps,
@@ -40,9 +41,13 @@ void lognormal_mocks_stats_fullsky(int Nmaps,
   // make theta and ell arrays;
   double *theta=calloc(Nth,sizeof(double));
   double *ell=calloc(Nl,sizeof(double));
+
+#pragma omp parallel for private(il) shared(Nl, ell)
   for (il=0;il<Nl; il++) {
     ell[il] = il;
   }
+
+ #pragma omp parallel for private(ith)
   for (ith=0;ith<Nth; ith++) {
     theta[ith] = M_PI/(Nth-1)*ith;
   }
