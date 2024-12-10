@@ -37,8 +37,8 @@ static PyObject *helloworld(PyObject *self, PyObject *args) {
 static PyObject *mod_lognormal_mocks_stats_fullsky(PyObject *self, PyObject *args) {
 
   int Nth;  /* Theta resolution (accuracy parameter) for intermediate correlation function */
-  PyObject *rhobar_array;
-  PyObject *Cl_array;
+  PyArrayObject *rhobar_array; //change here
+  PyArrayObject *Cl_array; //change here
 
   
   if (!PyArg_ParseTuple(args, "OOi", &rhobar_array, &Cl_array,&Nth)) 
